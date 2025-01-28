@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentLength = postInput.value.length;
         const remainingChars = charLimit - currentLength;
 
-        charCount.textContent = `${remainingChars} restantes`;
+        charCount.textContent = `${remainingChars}`;
 
         // Mudar a cor conforme o limite de caracteres é atingido
         if (remainingChars <= 20) {
