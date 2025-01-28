@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const postButton = document.querySelector('.btt');
     const postInput = document.getElementById('posting');
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Atualizar a contagem de caracteres em tempo real
     postInput.addEventListener('input', () => {
         const currentLength = postInput.value.length;
-        const remainingChars = charLimit - currentLength;
+        const remainingChars = charLimit+1 - currentLength;
 
         charCount.textContent = `${remainingChars}`;
 
@@ -54,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Verificar se há texto ou imagem para postar
         if (postContent || selectedImage) {
-            let newPost = `
+            if(postContent.length > 0 && postContent.length<281) {
+                let newPost = `
             <div class="post flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
                 <div class="mr-2 my-2 w-14">
                     <img src="./assets/images/perfil.jpg" alt="" class="rounded-full size-8">
@@ -118,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             imageInput.value = '';
             charCount.textContent = `${charLimit} caracteres restantes`;
             charCount.style.color = 'gray';
+            }
+            
         } else {
             alert('Por favor, digite algo ou selecione uma imagem para postar.');
         }
