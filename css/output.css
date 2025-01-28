@@ -173,6 +173,46 @@ sup {
   top: -0.5em;
 }
 
+
+
+
+/* Transição para animação de fade-in */
+.posting {
+  z-index: -1;
+/* Inicialmente invisível */
+  transform: translateY(10px); /* Leve deslocamento para o efeito */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fixed{
+  z-index: 10;
+}
+
+.posting img{
+
+  z-index: -1;
+}
+
+.like-count:hover{
+  font-size: 30px;
+}
+
+.like:hover{
+  font-size: 30px;
+}
+
+.liked::before{
+  font-size: 30px;
+}
+
+.posting.fade-in {
+  z-index: -1;
+  opacity: 1; /* Totalmente visível */
+  transform: translateY(0); /* Volta para a posição original */
+}
+
+
+
 /*
 1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
 2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
