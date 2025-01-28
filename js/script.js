@@ -49,15 +49,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Função para adicionar posts ao feed
+
+
+  // Salvar a imagem selecionada
+  imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        selectedImage = event.target.result; // Base64 da imagem
+      };
+      reader.readAsDataURL(file);
+    }
+  
+});
     // Adicionar nova publicação
     postButton.addEventListener('click', () => {
         const postContent = postInput.value.trim();
 
         // Verificar se há texto ou imagem para postar
         if (postContent || selectedImage) {
-            if(postContent.length > 0 && postContent.length<281) {
+            if(postContent.length<281) {
                 let newPost = `
-            <div class="post flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
+            <div class="post posting flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
                 <div class="mr-2 my-2 w-14">
                     <img src="./assets/images/logo-pionai1.png" alt="" class="rounded-full size-8">
                 </div>
@@ -118,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             postInput.value = '';
             selectedImage = null;
             imageInput.value = '';
-            charCount.textContent = `${charLimit} caracteres restantes`;
+            charCount.textContent = `${charLimit}`;
             charCount.style.color = 'gray';
             }
             
@@ -154,4 +169,110 @@ document.addEventListener('DOMContentLoaded', () => {
             likeCount.textContent = count;
         }
     });
+
+    const addPostToFeed = (postContent, time, image) => {
+        const post = document.createElement('div');
+        post.className = 'posting'; // Inicialmente sem a classe fade-in
+        post.innerHTML = `
+          <div class="post posting flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
+            <div class="mr-2 my-2 w-14">
+              <img src="./assets/images/logocode.jpg" alt="" class="rounded-full size-8">
+            </div>
+            <div class="flex flex-col">
+              <div class="flex justify-between">
+                <div class="flex items-center">
+                  <div>
+                    <div class="flex gap-[2px]">
+                      <h1 class="font-bold hover:underline text-base w-fit">CODE POINT by Mirantes</h1>
+                      <h2 class="text-base text-gray-400">@pionaistartup · ${time}</h2>
+                    </div>
+                    <div>
+                      <h3 class="text-sm" style="word-break: break-word;">${postContent ? `${postContent}` : ''}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <i class="text-xl fa-solid fa-ellipsis hover:text-[#1d9bf0] mr-2 my-auto rounded-full"></i>
+                </div>
+              </div>
+              <div class="postimg">
+                <div class="image">
+                  ${image ? `<img src="${image}" alt="Imagem da postagem" class="rounded-3xl my-2 w-[90%] h-[90%]">` : ''}
+                </div>
+                <div class="icons flex justify-between text-xs text-gray-400">
+                  <div class="py-2 flex justify-between w-[88%]">
+                    <div class="flex gap-1 hover:text-[#1d9bf0] items-center">
+                      <span class="material-symbols-outlined">chat_bubble</span>
+                    </div>
+                    <div class="flex gap-1 hover:text-[#00ba7c] items-center">
+                      <span class="material-symbols-outlined">repeat</span>
+                    </div>
+                    <div class="flex gap-2 items-center like">
+                    <span class="material-symbols-outlined cursor-pointer">favorite</span>
+                    <span class="like-count">0</span>
+                </div>
+                    <div class="flex gap-1 hover:text-[#f9c542] items-center">
+                      <span class="material-symbols-outlined">bar_chart</span>
+                    </div>
+                  </div>
+                  <div class="md:hidden py-2 ml-2 flex justify-end">
+                    <span class="material-symbols-outlined hover:text-[#1d9bf0]">share</span>
+                  </div>
+                  <div class="hidden md:flex py-2 justify-end gap-1">
+                    <span class="material-symbols-outlined hover:text-[#1d9bf0]">bookmark</span>
+                    <span class="material-symbols-outlined hover:text-[#1d9bf0]">upload</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="border-gray-500">
+        `;
+      
+        // Adiciona o post ao início do container
+        postsContainer.insertAdjacentElement('afterbegin', post);
+      
+        // Adiciona a classe de fade-in com um pequeno atraso para acionar a animação
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            post.classList.add('fade-in');
+          }, 100); // Pode ajustar o valor do delay se necessário
+        });
+      };
+  
+      
+      const simulatedPosts = [
+        {
+            text: 'Conheça a nossa classificação 🚀',
+            image: './assets/images/posting1.jpg'
+        },
+        {
+            text: 'Melhor concurso de programação de Angola!',
+            image: './assets/images/posting.jpg'
+        },
+        {
+            text: 'Já conheces a PIONAI?',
+            image: './assets/images/team.jpg'
+        }
+    ];
+    
+    let count = 0; // Começa com o primeiro post do array
+    let count1 = 4;
+    const intervalId = setInterval(() => {
+        if (count < simulatedPosts.length) { // Verifica se há posts restantes
+            const post = simulatedPosts[count];
+            count1=count1-1;
+            addPostToFeed(post.text, `${count1} min atrás`, post.image); // Adiciona o post com tempo crescente
+            count++; // Incrementa para o próximo post
+        } else {
+            clearInterval(intervalId); // Para o intervalo após exibir todos os posts
+        }
+    }, 4000); // Intervalo de 5 segundos
+    
+    
+    
+    
 });
+
+
+
