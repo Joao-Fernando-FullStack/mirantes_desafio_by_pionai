@@ -59,14 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 let newPost = `
             <div class="post flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
                 <div class="mr-2 my-2 w-14">
-                    <img src="./assets/images/perfil.jpg" alt="" class="rounded-full size-8">
+                    <img src="./assets/images/logo-pionai1.png" alt="" class="rounded-full size-8">
                 </div>
                 <div class="flex flex-col">
                     <div class="flex justify-between">
                         <div class="flex items-center">
                             <div>
                                 <div class="flex gap-[2px]">
-                                    <h1 class="font-bold hover:underline text-base w-fit">João Fernando Matias</h1>
+                                    <h1 class="font-bold hover:underline text-base w-fit">PionAI Startup</h1>
                                     <h2 class="text-base text-gray-400">@pionaistartup · Agora</h2>
                                 </div>
                                 <div>
