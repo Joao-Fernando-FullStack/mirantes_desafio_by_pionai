@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postsContainer = document.querySelector('.postsContainer');
     const selectImageIcon = document.getElementById('selectImage');
     const charCount = document.getElementById('charCount');
+
     const charLimit = 280;
 
     let selectedImage = null;
@@ -71,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Verificar se há texto ou imagem para postar
         if (postContent || selectedImage) {
             if(postContent.length<281) {
-                let newPost = `
-            <div class="post posting flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
+              let newPost = document.createElement('div');
+        newPost.className = 'posting'; // Inicialmente sem a classe fade-in
+                newPost.innerHTML = `
+            <div class="post flex py-2 px-2 cursor-pointer hover:bg-[#080808]">
                 <div class="mr-2 my-2 w-14">
                     <img src="./assets/images/logo-pionai1.png" alt="" class="rounded-full size-8">
                 </div>
@@ -126,16 +129,28 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <hr class="border-gray-500">`;
 
-            // Inserir a nova publicação no início do container
-            postsContainer.insertAdjacentHTML('afterbegin', newPost);
+            postsContainer.insertBefore(newPost, postsContainer.firstChild);
 
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                newPost.classList.add('fade-in');
+              }, 100); // Pode ajustar o valor do delay se necessário
+            });
+        
+      
+            // Adiciona a classe de fade-in com um pequeno atraso para acionar a animação
+          
             // Limpar o campo de entrada e imagem selecionada
             postInput.value = '';
             selectedImage = null;
             imageInput.value = '';
             charCount.textContent = `${charLimit}`;
             charCount.style.color = 'gray';
+              // Inserir a nova publicação no início do container
+             
+             
             }
+          
             
         } else {
             alert('Por favor, digite algo ou selecione uma imagem para postar.');
@@ -231,13 +246,25 @@ document.addEventListener('DOMContentLoaded', () => {
       
         // Adiciona o post ao início do container
         postsContainer.insertAdjacentElement('afterbegin', post);
-      
+      // Intervalo de 5 segundos
         // Adiciona a classe de fade-in com um pequeno atraso para acionar a animação
         requestAnimationFrame(() => {
           setTimeout(() => {
             post.classList.add('fade-in');
           }, 100); // Pode ajustar o valor do delay se necessário
         });
+
+        const intervalId = setInterval(() => {
+          if (count < simulatedPosts.length) { // Verifica se há posts restantes
+              const post = simulatedPosts[count];
+              count1=count1-1;
+              addPostToFeed(post.text, `${count1} min atrás`, post.image); // Adiciona o post com tempo crescente
+              count++; // Incrementa para o próximo post
+          } else {
+              clearInterval(intervalId); // Para o intervalo após exibir todos os posts
+          }
+      }, 4000);
+      
       };
   
       
