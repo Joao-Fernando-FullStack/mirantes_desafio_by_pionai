@@ -174,25 +174,47 @@ sup {
 }
 
 
+.like-count {
+  margin-left: 5px;
+  font-weight: bold;
+  color: #777;
+}
+
+.posting.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.like.liked {
+
+  animation: pop 0.3s ease forwards;
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 
 /* Transição para animação de fade-in */
-.posting {
-  z-index: -1;
-/* Inicialmente invisível */
-  transform: translateY(10px); /* Leve deslocamento para o efeito */
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
+
 
 .fixed{
   z-index: 10;
 }
 
-.posting img{
 
-  z-index: -1;
-}
-
+/*
 .like-count:hover{
   font-size: 30px;
 }
@@ -204,12 +226,8 @@ sup {
 .liked::before{
   font-size: 30px;
 }
+*/
 
-.posting.fade-in {
-  z-index: -1;
-  opacity: 1; /* Totalmente visível */
-  transform: translateY(0); /* Volta para a posição original */
-}
 
 
 
