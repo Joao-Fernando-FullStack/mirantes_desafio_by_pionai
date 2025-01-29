@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             clearInterval(intervalId); // Para o intervalo após exibir todos os posts
         }
-    }, 4000); // Intervalo de 5 segundos
+    }, 6000); // Intervalo de 5 segundos
     
     
     
